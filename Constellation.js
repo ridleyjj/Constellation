@@ -89,7 +89,7 @@ class Constellation {
             this.panner.pan.rampTo(this.xPosToPan());
             const note = `${NOTES[floor(random() * NOTES.length)]}1`;
             this.membraneLow.triggerAttackRelease(note, "16n");
-            this.sampler.triggerAttackRelease(note);
+            this.sampler.triggerAttackRelease(note, 0.5);
         }
     };
 
