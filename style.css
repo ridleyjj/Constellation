@@ -2,14 +2,28 @@
 * {
     font-family:'Trebuchet MS';
     color:#a19696;
+    text-align: center;
 }
 
-h1 {
-    text-align: center;
+#heading {
+    width: 100%;
+    display: grid;
 }
 
 #soundButton {
     background-color: #ffffff;
     border: none;
     font-size: 2rem;
+    width: 3rem;
 }
+
+#canvas {
+    margin: 0;
+    display: flex;
+  
+    /* This centers our sketch horizontally. */
+    justify-content: center;
+  
+    /* This centers our sketch vertically. */
+    align-items: center;
+  }
