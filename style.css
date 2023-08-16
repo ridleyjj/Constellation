@@ -1,0 +1,15 @@
+
+* {
+    font-family:'Trebuchet MS';
+    color:#a19696;
+}
+
+h1 {
+    text-align: center;
+}
+
+#soundButton {
+    background-color: #ffffff;
+    border: none;
+    font-size: 2rem;
+}
