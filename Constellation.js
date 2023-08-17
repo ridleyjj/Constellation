@@ -17,18 +17,9 @@ class Constellation {
 
     membraneLow = new Tone.MembraneSynth().connect(this.membraneVolume);
 
+    static lineColor = 255;
+
     muted = true;
-
-    colorIndex = 0;
-
-    COLOURS = [
-        [color(78), color(255)],
-        [color(234), color(208, 120, 120)],
-        [color(254, 172, 128), color(1, 191, 191)],
-        [color(252, 231, 126), color(250, 97, 102)],
-        [color(252, 237, 218), color(238, 78, 52)],
-        [color(173, 217, 230), color(1, 0, 140)],
-    ];
 
     x = 0;
     y = 0;
@@ -39,17 +30,12 @@ class Constellation {
 
     pointRadius = 8;
 
-    lineColor = color(255);
-
-    bgColor = color(70);
-
     constructor() {
         this.x = width * Math.random();
         this.y = height * Math.random();
-        background(this.bgColor);
-        stroke(this.lineColor);
+        stroke(Constellation.lineColor);
         strokeWeight(2);
-        fill(this.lineColor);
+        fill(Constellation.lineColor);
         this.drawPoint();
         this.pickNewTarget();
     }
@@ -76,7 +62,7 @@ class Constellation {
 
     drawPoint = function () {
         if (floor(random(10)) === 1) {
-            this.changeColor();
+            document.body.dispatchEvent(new Event("changeColor"));
         }
         ellipse(this.x, this.y, this.pointRadius, this.pointRadius);
         this.playSound();
@@ -106,7 +92,6 @@ class Constellation {
     };
 
     restart = function () {
-        this.changeColor();
         this.drawPoint();
         this.pickNewTarget();
     };
@@ -115,13 +100,7 @@ class Constellation {
         return map(this.x, 0, width, -1, 1);
     };
 
-    changeColor = function () {
-        let newIndex = this.colorIndex;
-        while (newIndex === this.colorIndex) {
-            newIndex = floor(random(this.COLOURS.length));
-        }
-        background(this.COLOURS[newIndex][0]);
-        fill(this.COLOURS[newIndex][1]);
-        stroke(this.COLOURS[newIndex][1]);
+    static updateLineColor = function (c) {
+        Constellation.lineColor = c;
     };
 }

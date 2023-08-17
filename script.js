@@ -4,7 +4,10 @@ let initialised = false;
 
 // Visuals
 
-let constellation;
+let constellations = [];
+
+const numLines = 1;
+
 let muted = true;
 
 const soundButton = document.getElementById("soundButton");
@@ -15,24 +18,41 @@ soundButton.addEventListener("click", () => {
         initialised = true;
         Tone.start();
     }
-    const volOff = "fa-volume-off";
-    const volOn = "fa-volume-up";
-    muteIcon.classList.replace(muted ? volOff : volOn, muted ? volOn : volOff);
+    muteIcon.classList.toggle("fa-volume-off");
+    muteIcon.classList.toggle("fa-volume-up");
     muted = !muted;
-    constellation.muted = !constellation.muted;
+    constellations.forEach((constellation) => {
+        constellation.muted = !constellation.muted;
+    });
 });
 
 function setup() {
     createCanvas(window.innerWidth - 20, window.innerHeight - 150);
-    constellation = new Constellation();
+    colourManager = new ColourManager();
+    for (let i = 0; i < numLines; i++) {
+        constellations.push(new Constellation());
+    }
 }
 
 function draw() {
-    constellation.display();
+    colourManager.display();
+    constellations.forEach((constellation) => {
+        constellation.display();
+    });
 }
 
 function mousePressed() {
     if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
-        constellation.restart();
+        reset();
     }
+}
+
+document.body.addEventListener("changeColor", reset);
+
+function reset() {
+    colourManager.changeColor();
+    Constellation.updateLineColor(colourManager.lineColor);
+    constellations.forEach((constellation) => {
+        constellation.restart();
+    });
 }
